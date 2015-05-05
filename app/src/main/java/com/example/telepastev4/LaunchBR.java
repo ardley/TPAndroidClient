@@ -29,7 +29,7 @@ public class LaunchBR extends BroadcastReceiver {
             String resultToastString = "";
             if (sharedprefset.contains(Notfirsttime)){
                 //finish();
-                resultToastString= "This the firste taahm";
+                resultToastString= "This the firste tahme";
                 String notfirsttime  = "true";
                 Editor editor = sharedprefset.edit();
                 editor.putString(Notfirsttime, notfirsttime);
