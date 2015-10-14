@@ -83,7 +83,8 @@ public class ServerRequest {
     private class Request extends AsyncTask<Params, String, JSONObject> {
         @Override
         protected JSONObject doInBackground(Params... args) {
-            ServerRequest request = new ServerRequest();
+            ServerRequest request;
+            request = new ServerRequest();
             JSONObject json = request.getJSONFromUrl(args[0].url,args[0].params);
             return json;
         }
