@@ -3,4 +3,4 @@ down, work, push it up.  Or work on it through helix clients if you like.  But
 do let Android studio fix things the next time and then push it back up.
 
 Or investigate whether you can connect directly via Helix clients from Android
-Studio. Editied from Komodo/P4V and then while checked out on Thinkpad and then force saved on mac
+Studio. Editied while checked out on Thinkpad
