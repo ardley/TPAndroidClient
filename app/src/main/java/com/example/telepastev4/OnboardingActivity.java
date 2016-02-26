@@ -67,7 +67,7 @@ public class OnboardingActivity extends Activity {
         params.add(new BasicNameValuePair(installIDKey, sharedprefset.getString(installIDKey,  "noinstID")));
         params.add(new BasicNameValuePair(installRHKey, sharedprefset.getString(installRHKey, "noRandHexPassgot")));
         Log.d("params sent SvRqst():", params.toString());
-        JSONObject json = sr.getJSON("http://ec2-52-11-224-16.us-west-2.compute.amazonaws.com:443/api/testing", params);
+        JSONObject json = sr.getJSON("http://sean4.das.perforce.com:3000/api/testing", params);
         String jsonresponsestr="jsonresponsestr initialized but has not had value fed from server response JSONobj";
         try {
             jsonresponsestr = json.getString("response");
