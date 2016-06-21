@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
@@ -26,8 +27,8 @@ public class OnboardingActivity extends Activity {
     public static final String installIDKey = "InstallID";
     public static final String deviceTypeKey = "deviceType";
     public static final String installRHKey = "InstallRandHex";
-    ServerRequest sr;
-    List<NameValuePair> params;
+    ServerRequest2 sr;
+    ContentValues params;
     SharedPreferences sharedprefset;
 
     @Override
@@ -54,21 +55,33 @@ public class OnboardingActivity extends Activity {
             Log.e("MakeInstallRH AsyncTask", "Error on .execute().get()(ExecutionException) " + e.toString());
             e.printStackTrace();
         }
-        sr = new ServerRequest();
+        sr = new ServerRequest2();
         sharedprefset = getSharedPreferences(PREFERENCESSETNAME, Context.MODE_PRIVATE);
         Editor editor = sharedprefset.edit();
         editor.putString(deviceTypeKey, getAndroidDeviceType());
         editor.putString(installIDKey, installIDval);
         editor.putString(installRHKey, installRHval);
         editor.commit();
+        //on SharedPreferences.getString(key, default) key is key in sharedprefs, default is what's returned if key not found or null)
         Toast.makeText(getBaseContext(), sharedprefset.getString(deviceTypeKey, "no devtype got")+" and "+ sharedprefset.getString(installIDKey,  "noinstID"), Toast.LENGTH_LONG).show();
-        params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair(deviceTypeKey, sharedprefset.getString(deviceTypeKey, "no devtype got")));
-        params.add(new BasicNameValuePair(installIDKey, sharedprefset.getString(installIDKey,  "noinstID")));
-        params.add(new BasicNameValuePair(installRHKey, sharedprefset.getString(installRHKey, "noRandHexPassgot")));
+        params = new ContentValues();
+        params.put(deviceTypeKey, sharedprefset.getString(deviceTypeKey, "no devtype got"));
+        params.put(installIDKey, sharedprefset.getString(installIDKey,  "noinstID"));
+        params.put(installRHKey, sharedprefset.getString(installRHKey, "noRandHexPassgot"));
         Log.d("params sent SvRqst():", params.toString());
         JSONObject json = sr.getJSON("http://sean4.das.perforce.com:3000/api/testing", params);
         String jsonresponsestr="jsonresponsestr initialized but has not had value fed from server response JSONobj";
+
+
+
+        try {
+            Thread.sleep(1000);                 //1000 milliseconds is one second.
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+
+
+
         try {
             jsonresponsestr = json.getString("response");
         } catch (JSONException e) {
